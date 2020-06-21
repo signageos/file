@@ -78,12 +78,15 @@ build:
     paths:
       - dist/
 
-publish:npm:
+publish:npm-public:
   stage: publish
   dependencies:
     - prepare
     - build
   script:
+    - export NPM_REGISTRY_URL=https://registry.npmjs.org/
+    - export NPM_REGISTRY_HOST=registry.npmjs.org
+    - export NPM_AUTH_TOKEN=$PUBLIC_NPM_AUTH_TOKEN
     - npm publish --ignore-scripts --tag $TAG
 
 release:tag:
