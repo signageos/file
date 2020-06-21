@@ -93,7 +93,7 @@ release:tag:
   image: $CI_REGISTRY/signageos/docker:master
   stage: release
   only:
-    - master
+    - main
   when: manual
   allow_failure: false
   before_script: []
