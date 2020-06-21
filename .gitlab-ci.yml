@@ -39,6 +39,7 @@ test:general:
   except:
     - tags
   script:
+    - apk add file --no-cache
     - npm test
 
 test:lint:
