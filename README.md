@@ -13,7 +13,7 @@ npm i @signageos/file
 
 ## Usage
 ```ts
-import file from 'file';
+import file from '@signageos/file';
 
 (async function () {
 	const result = await file('/tmp/file-to-determine');
@@ -41,7 +41,7 @@ interface Result {
 
 ### Get version of file
 ```ts
-import { getVersion } from 'file';
+import { getVersion } from '@signageos/file';
 
 (async function () {
 	const version = await getVersion();
