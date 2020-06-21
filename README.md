@@ -26,6 +26,7 @@ import file from 'file';
 function file(filePath: string, options?: Options): Promise<Result>;
 
 interface Options {
+	fileBinPath?: string; // path to file binary to be used instead of default
 	mimeType?: boolean; // if set to true, result will contain detected mime-type of file. Default false.
 	separator?: string; // default ':'
 	alternativeSeparators?: string[]; // default [';', '$', '€', '>', '<']

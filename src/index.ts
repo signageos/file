@@ -1,9 +1,11 @@
 import { spawn } from 'child-process-promise';
+import * as path from 'path';
 import * as Debug from 'debug';
 import * as querystring from 'querystring';
 const debug = Debug('@signageos/file:index');
 
 export interface Options {
+	fileBinPath?: string; // path to file binary to be used instead of default
 	mimeType?: boolean; // if set to true, result will contain detected mime-type of file. Default false.
 	separator?: string; // default ':'
 	alternativeSeparators?: string[]; // default [';', '$', '€', '>', '<']
@@ -20,7 +22,7 @@ export interface Result {
 }
 
 export default async function file(filePath: string, options: Options = {}) {
-	const fileBinPath = await getFileBinPath();
+	const fileBinPath = await getFileBinPath(options);
 	debug('bin', fileBinPath);
 
 	const { args, separator } = createFileArguments(filePath, options);
@@ -41,8 +43,8 @@ export default async function file(filePath: string, options: Options = {}) {
 	}
 }
 
-export async function getVersion() {
-	const fileBinPath = await getFileBinPath();
+export async function getVersion(options: Options = {}) {
+	const fileBinPath = await getFileBinPath(options);
 	debug('bin', fileBinPath);
 
 	const spawnProcess = spawn(fileBinPath, ['--version'], { capture: [ 'stdout', 'stderr' ]});
@@ -59,8 +61,18 @@ export async function getVersion() {
 	}
 }
 
-async function getFileBinPath() {
-	return 'file'; // TODO alternative path or windows local path
+const DEFAULT_UNIX_FILE_BIN_PATH = 'file';
+const DEFAULT_WIN32_FILE_BIN_PATH = path.join(__dirname, 'win32', 'bin', 'file.exe');
+
+async function getFileBinPath(options: Options) {
+	if (options.fileBinPath) {
+		return options.fileBinPath;
+	}
+	if (process.platform === 'win32') {
+		return DEFAULT_WIN32_FILE_BIN_PATH;
+	} else {
+		return DEFAULT_UNIX_FILE_BIN_PATH;
+	}
 }
 
 const DEFAULT_SEPARATOR = ':';
