@@ -6,19 +6,16 @@ import * as download from 'download';
 import * as unzipper from 'unzipper';
 const debug = Debug('@signageos/file:tools/download-file-win32');
 
-const WIN32_FILE_URL = 'https://2.signageos.io/build/npm/file/file-5.03-bin-win32.zip';
-const WIN32_REGEX_URL = 'https://2.signageos.io/build/npm/regex/regex-2.7-bin-win32.zip';
-const WIN32_ZLIB_URL = 'https://2.signageos.io/build/npm/zlib/zlib-1.2.3-bin-win32.zip';
+const WIN32_FILE_URL = 'https://2.signageos.io/build/npm/file/file-5.32-1-bin-win32.zip';
+const WIN32_ZLIB_URL = 'https://2.signageos.io/build/npm/zlib/zlib-1.2.11-1-bin-win32.zip';
 
 (async function () {
 	const tmpDir = os.tmpdir();
 
 	const fileZipFilename = Math.random().toString().substr(2) + '.zip';
-	const regexFilename = Math.random().toString().substr(2) + '.zip';
 	const zlibFilename = Math.random().toString().substr(2) + '.zip';
 
 	const fileZipPath = path.join(tmpDir, fileZipFilename);
-	const regexZipPath = path.join(tmpDir, regexFilename);
 	const zlibZipPath = path.join(tmpDir, zlibFilename);
 
 	const win32Path = path.join(__dirname, '..', 'dist', 'win32');
@@ -26,7 +23,6 @@ const WIN32_ZLIB_URL = 'https://2.signageos.io/build/npm/zlib/zlib-1.2.3-bin-win
 	try {
 		await Promise.all([
 			download(WIN32_FILE_URL, tmpDir, { filename: fileZipFilename }),
-			download(WIN32_REGEX_URL, tmpDir, { filename: regexFilename }),
 			download(WIN32_ZLIB_URL, tmpDir, { filename: zlibFilename }),
 		]);
 
@@ -34,15 +30,11 @@ const WIN32_ZLIB_URL = 'https://2.signageos.io/build/npm/zlib/zlib-1.2.3-bin-win
 			fs.mkdirSync(win32Path);
 		}
 		await unzipFile(fileZipPath, win32Path);
-		await unzipFile(regexZipPath, win32Path);
 		await unzipFile(zlibZipPath, win32Path);
 
 	} finally {
 		try {
 			fs.unlinkSync(fileZipPath);
-		} catch (error) { /* ignore */ }
-		try {
-			fs.unlinkSync(regexZipPath);
 		} catch (error) { /* ignore */ }
 		try {
 			fs.unlinkSync(zlibZipPath);
