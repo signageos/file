@@ -48,7 +48,7 @@
     "debug": "4.1.1",
     "download": "8.0.0",
     "fs-extra": "9.0.1",
-    "run-script-os": "1.1.1",
+    "run-script-os": "1.1.6",
     "unzipper": "0.10.11"
   },
   "devDependencies": {
