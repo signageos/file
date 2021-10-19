@@ -10,7 +10,7 @@ const WIN32_FILE_URL = 'https://2.signageos.io/build/npm/file/file-5.03-bin-win3
 const WIN32_REGEX_URL = 'https://2.signageos.io/build/npm/regex/regex-2.7-bin-win32.zip';
 const WIN32_ZLIB_URL = 'https://2.signageos.io/build/npm/zlib/zlib-1.2.3-bin-win32.zip';
 
-(async function () {
+export const promise = (async function () {
 	const tmpDir = os.tmpdir();
 
 	const fileZipFilename = Math.random().toString().substr(2) + '.zip';
@@ -51,7 +51,7 @@ const WIN32_ZLIB_URL = 'https://2.signageos.io/build/npm/zlib/zlib-1.2.3-bin-win
 })();
 
 function unzipFile(zipFilePath: string, destination: string) {
-	return new Promise((resolve, reject) => {
+	return new Promise<void>((resolve, reject) => {
 		fs.createReadStream(zipFilePath)
 		.pipe(unzipper.Parse())
 		.on('entry', (entry) => {
