@@ -1,5 +1,6 @@
 import { spawn } from 'child-process-promise';
 import * as path from 'path';
+import * as fs from 'fs';
 import * as Debug from 'debug';
 import * as querystring from 'querystring';
 const debug = Debug('@signageos/file:index');
@@ -69,6 +70,10 @@ async function getFileBinPath(options: Options) {
 		return options.fileBinPath;
 	}
 	if (process.platform === 'win32') {
+		if (!fs.existsSync(DEFAULT_WIN32_FILE_BIN_PATH)) {
+			const { promise } = await import('./downloadFileWin32');
+			await promise;
+		}
 		return DEFAULT_WIN32_FILE_BIN_PATH;
 	} else {
 		return DEFAULT_UNIX_FILE_BIN_PATH;
