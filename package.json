@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "lint": "tslint --config node_modules/@signageos/codestyle/tslint.json \"{src,tests}/**/*.{ts,tsx}\"",
+    "lint": "tslint --config node_modules/@signageos/codestyle/tslint.json \"{src,test}/**/*.{ts,tsx}\"",
     "prebuild": "rm -rf dist/*",
     "prepare": "npm run prebuild && npm run build",
     "postinstall": "run-script-os || echo 'Nothing to do for current platform'",
