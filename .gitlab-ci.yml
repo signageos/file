@@ -2,6 +2,10 @@ image: $CI_REGISTRY/signageos/docker-node:12.16.1-alpine-build
 services:
   - docker:dind
 
+variables:
+  MAIN_BRANCH: main
+  RELEASE_BRANCH: main
+
 stages:
   - prepare
   - test
