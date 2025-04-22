@@ -25,8 +25,9 @@ describe('index', function () {
 
 		it('should get general types of HTML', async function () {
 			const result = await file(testFile2Path);
+			const expectedTypes = process.platform === 'win32' ? ['HTML document', 'ASCII text'] : ['HTML document text', 'ASCII text'];
 			should(result).eql({
-				types: ['HTML document', 'ASCII text'],
+				types: expectedTypes,
 			});
 		});
 
