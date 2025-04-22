@@ -20,7 +20,6 @@
 		"check": "npm run depcheck && npx --userconfig ./.npmrc @signageos/lib-ci check-deps",
 		"depcheck": "depcheck --config .depcheckrc.json",
 		"lint:prettier": "prettier  \"**/*.+(ts|tsx|json|js)\" --check",
-		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write",
 		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write"
 	},
 	"repository": {
