@@ -1,10 +1,14 @@
-image: $CI_REGISTRY/signageos/docker-node:12.16.1-alpine-build
-services:
-  - docker:dind
-
 variables:
   MAIN_BRANCH: main
   RELEASE_BRANCH: main
+  NODE_VERSION: 20
+  IMAGE_VARIANT: alpine-build
+  # Add npm configuration to use a writable directory
+  NPM_CONFIG_USERCONFIG: $CI_PROJECT_DIR/.npmrc
+
+image: $CI_REGISTRY/signageos/docker-node:${NODE_VERSION}-${IMAGE_VARIANT}
+services:
+  - docker:dind
 
 stages:
   - prepare
@@ -20,10 +24,12 @@ cache:
     - node_modules/
 
 before_script:
-  - npm config set unsafe-perm true
+  # Create a writable npm config file in the project directory
+  - touch $CI_PROJECT_DIR/.npmrc
+  - npm config set ignore-scripts false
   - export VERSION=`cat ./VERSION`
   - export TAG=`cat ./PRERELEASE`
-  - npx --userconfig ./.npmrc @signageos/lib@latest version-upgrade $VERSION
+  - npx --userconfig ./.npmrc @signageos/lib-ci@latest version-upgrade $VERSION
   - mkdir -p dist
   - npm install --ignore-scripts
 
