@@ -29,7 +29,9 @@ export default async function file(filePath: string, options: Options = {}) {
 	const { args, separator } = createFileArguments(filePath, options);
 	debug('args', { args, separator });
 
-	const spawnProcess = spawn(fileBinPath, args, { capture: [ 'stdout', 'stderr' ]});
+	const spawnProcess = spawn(fileBinPath, args, {
+		capture: ['stdout', 'stderr'],
+	});
 	try {
 		const rawResult = await spawnProcess;
 		debug('raw result', rawResult);
@@ -48,7 +50,9 @@ export async function getVersion(options: Options = {}) {
 	const fileBinPath = await getFileBinPath(options);
 	debug('bin', fileBinPath);
 
-	const spawnProcess = spawn(fileBinPath, ['--version'], { capture: [ 'stdout', 'stderr' ]});
+	const spawnProcess = spawn(fileBinPath, ['--version'], {
+		capture: ['stdout', 'stderr'],
+	});
 	try {
 		const rawResult = await spawnProcess;
 		debug('raw result', rawResult);

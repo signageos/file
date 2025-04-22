@@ -36,35 +36,40 @@ export const promise = (async function () {
 		await unzipFile(fileZipPath, win32Path);
 		await unzipFile(regexZipPath, win32Path);
 		await unzipFile(zlibZipPath, win32Path);
-
 	} finally {
 		try {
 			fs.unlinkSync(fileZipPath);
-		} catch (error) { /* ignore */ }
+		} catch (error) {
+			/* ignore */
+		}
 		try {
 			fs.unlinkSync(regexZipPath);
-		} catch (error) { /* ignore */ }
+		} catch (error) {
+			/* ignore */
+		}
 		try {
 			fs.unlinkSync(zlibZipPath);
-		} catch (error) { /* ignore */ }
+		} catch (error) {
+			/* ignore */
+		}
 	}
 })();
 
 function unzipFile(zipFilePath: string, destination: string) {
 	return new Promise<void>((resolve, reject) => {
 		fs.createReadStream(zipFilePath)
-		.pipe(unzipper.Parse())
-		.on('entry', (entry) => {
-			const fileName = entry.path;
-			const type = entry.type;
-			debug('unzipFile', zipFilePath, fileName);
-			const destFilePath = path.join(destination, fileName);
-			if (type === 'File') {
-				fs.ensureDirSync(path.dirname(destFilePath));
-				entry.pipe(fs.createWriteStream(destFilePath));
-			}
-		})
-		.on('finish', () => resolve())
-		.on('error', (error) => reject(error));
+			.pipe(unzipper.Parse())
+			.on('entry', (entry) => {
+				const fileName = entry.path;
+				const type = entry.type;
+				debug('unzipFile', zipFilePath, fileName);
+				const destFilePath = path.join(destination, fileName);
+				if (type === 'File') {
+					fs.ensureDirSync(path.dirname(destFilePath));
+					entry.pipe(fs.createWriteStream(destFilePath));
+				}
+			})
+			.on('finish', () => resolve())
+			.on('error', (error) => reject(error));
 	});
 }
