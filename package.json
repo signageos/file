@@ -19,8 +19,8 @@
     "watch": "tsc --watch",
     "check": "npm run depcheck && npx --userconfig ./.npmrc @signageos/lib check-deps",
     "depcheck": "depcheck --specials=tslint,mocha --parsers='*.ts:typescript,*.js:es6' --detectors='requireCallExpression,importDeclaration' --ignore-dirs='dist' --ignores='@types/*,@signageos/codestyle,mocha,depcheck,run-script-os'"
-  },
-  "repository": {
+		"lint:prettier": "prettier  \"**/*.+(ts|tsx|json|js)\" --check",
+		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write"
     "type": "git",
     "url": "git+https://github.com/signageos/file.git"
   },
@@ -68,4 +68,5 @@
     "tslint": "6.0.0",
     "typescript": "3.8.3"
   }
+		"prettier": "3.5.3",
 }
