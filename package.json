@@ -10,7 +10,7 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"lint": "tslint --config node_modules/@signageos/codestyle/tslint.json \"{src,test}/**/*.{ts,tsx}\"",
+		"lint": "eslint --ext .ts,.tsx,.js ./src/ ./test",
 		"prebuild": "rm -rf dist/*",
 		"prepare": "npm run prebuild && npm run build",
 		"postinstall": "run-script-os || echo 'Nothing to do for current platform'",
@@ -21,6 +21,9 @@
 		"depcheck": "depcheck --specials=tslint,mocha --parsers='*.ts:typescript,*.js:es6' --detectors='requireCallExpression,importDeclaration' --ignore-dirs='dist' --ignores='@types/*,@signageos/codestyle,mocha,depcheck,run-script-os'",
 		"lint:prettier": "prettier  \"**/*.+(ts|tsx|json|js)\" --check",
 		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write",
+		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write"
+	},
+	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/signageos/file.git"
 	},
@@ -52,9 +55,9 @@
 		"unzipper": "0.10.11"
 	},
 	"devDependencies": {
-		"@signageos/codestyle": "0.0.15",
-		"@types/child-process-promise": "2.2.1",
-		"@types/debug": "4.1.5",
+		"@eslint/eslintrc": "3.3.1",
+		"@eslint/js": "9.25.1",
+		"@signageos/codestyle": "0.4.0",
 		"@types/download": "6.2.4",
 		"@types/fs-extra": "9.0.1",
 		"@types/mocha": "7.0.2",
@@ -63,10 +66,13 @@
 		"@types/unzipper": "0.10.3",
 		"depcheck": "0.9.2",
 		"mocha": "7.1.0",
+		"eslint": "9.25.1",
+		"eslint-config-prettier": "10.1.2",
+		"eslint-plugin-unused-imports": "4.1.4",
 		"prettier": "3.5.3",
 		"should": "13.2.3",
-		"ts-node": "8.6.2",
-		"tslint": "6.0.0",
-		"typescript": "3.8.3"
+		"ts-node": "10.9.2",
+		"typescript": "5.8.3",
+		"typescript-eslint": "8.31.0"
 	}
 }
