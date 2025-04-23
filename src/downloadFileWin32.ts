@@ -1,3 +1,8 @@
+/**
+ * Module for downloading and extracting the Windows binaries for the 'file' command
+ * This module is automatically imported when running on Windows platforms
+ * @module downloadFileWin32
+ */
 import * as path from 'path';
 import * as os from 'os';
 import * as fs from 'fs-extra';
@@ -6,10 +11,17 @@ import * as download from 'download';
 import * as unzipper from 'unzipper';
 const debug = Debug('@signageos/file:tools/download-file-win32');
 
+/** URL to download the file command binary for Windows */
 const WIN32_FILE_URL = 'https://2.signageos.io/build/npm/file/file-5.03-bin-win32.zip';
+/** URL to download the regex library binary for Windows */
 const WIN32_REGEX_URL = 'https://2.signageos.io/build/npm/regex/regex-2.7-bin-win32.zip';
+/** URL to download the zlib library binary for Windows */
 const WIN32_ZLIB_URL = 'https://2.signageos.io/build/npm/zlib/zlib-1.2.3-bin-win32.zip';
 
+/**
+ * Promise that downloads and extracts the necessary Windows binaries for the file command
+ * This promise is automatically executed when the module is imported on Windows platforms
+ */
 export const promise = (async function () {
 	const tmpDir = os.tmpdir();
 
@@ -37,6 +49,7 @@ export const promise = (async function () {
 		await unzipFile(regexZipPath, win32Path);
 		await unzipFile(zlibZipPath, win32Path);
 	} finally {
+		// Clean up temporary zip files
 		try {
 			fs.unlinkSync(fileZipPath);
 		} catch (error) {
@@ -55,7 +68,14 @@ export const promise = (async function () {
 	}
 })();
 
-function unzipFile(zipFilePath: string, destination: string) {
+/**
+ * Extracts a zip file to the specified destination
+ *
+ * @param zipFilePath - Path to the zip file to extract
+ * @param destination - Directory where the contents should be extracted
+ * @returns A Promise that resolves when extraction is complete
+ */
+function unzipFile(zipFilePath: string, destination: string): Promise<void> {
 	return new Promise<void>((resolve, reject) => {
 		fs.createReadStream(zipFilePath)
 			.pipe(unzipper.Parse())
