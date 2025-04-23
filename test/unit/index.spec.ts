@@ -2,14 +2,12 @@ import * as should from 'should';
 import file, { getVersion } from '../../src/index';
 
 describe('index', function () {
-
 	const testFile1Path = __dirname + '/mock/file1';
 	const testFile2Path = __dirname + '/mock/file2.html';
 	const testFile3Path = __dirname + '/mock/file3:char.html';
 	const testFile4Path = __dirname + '/mock/file4:*char.html';
 
 	describe('file', function () {
-
 		it('should get general types', async function () {
 			const result = await file(testFile1Path);
 			should(result).eql({
@@ -27,8 +25,9 @@ describe('index', function () {
 
 		it('should get general types of HTML', async function () {
 			const result = await file(testFile2Path);
+			const expectedTypes = process.platform === 'darwin' ? ['HTML document text', 'ASCII text'] : ['HTML document', 'ASCII text'];
 			should(result).eql({
-				types: ['HTML document', 'ASCII text'],
+				types: expectedTypes,
 			});
 		});
 
@@ -62,7 +61,6 @@ describe('index', function () {
 	});
 
 	describe('getVersion', function () {
-
 		it('should get version of file', async function () {
 			const version = await getVersion();
 			should(version).startWith('file-5.');

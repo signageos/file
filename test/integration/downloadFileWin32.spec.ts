@@ -4,7 +4,6 @@ import * as fs from 'fs-extra';
 import { spawn } from 'child-process-promise';
 
 describe('downloadFileWin32', function () {
-
 	this.timeout(10e3);
 
 	beforeEach(async function () {
