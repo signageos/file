@@ -16,7 +16,7 @@
 		"lint:fix": "eslint --fix --ext .ts,.tsx,.js ./src/ ./test",
 		"postinstall": "run-script-os || echo 'Nothing to do for current platform'",
 		"postinstall:win32": "node dist/downloadFileWin32",
-		"test": "mocha",
+		"test": "npm run build && mocha",
 		"watch": "tsc --watch",
 		"check": "npm run depcheck && npx --userconfig ./.npmrc @signageos/lib-ci check-deps",
 		"depcheck": "depcheck --config .depcheckrc.json",
