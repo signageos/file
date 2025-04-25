@@ -11,7 +11,7 @@ const config = tseslint.config(compat.extends('prettier'), compat.config(codeSty
 	languageOptions: {
 		parser: tseslint.parser,
 		parserOptions: {
-			project: './tsconfig.json',
+			project: ['./tsconfig.json', './tsconfig.test.json'],
 		},
 	},
 	rules: {

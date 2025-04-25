@@ -25,6 +25,7 @@
 		"prettier",
 		"should",
 		"typescript-eslint",
-		"run-script-os"
+		"run-script-os",
+		"@signageos/lib-ci"
 	]
 }
