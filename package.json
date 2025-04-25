@@ -9,10 +9,11 @@
 		"package.json"
 	],
 	"scripts": {
+		"clean-build": "rm -rf dist/* && npm run build",
+		"clean-build-public": "rm -rf dist/* && npm run build",
 		"build": "tsc",
 		"lint": "eslint --ext .ts,.tsx,.js ./src/ ./test",
-		"prebuild": "rm -rf dist/*",
-		"prepare": "npm run prebuild && npm run build",
+		"lint:fix": "eslint --fix --ext .ts,.tsx,.js ./src/ ./test",
 		"postinstall": "run-script-os || echo 'Nothing to do for current platform'",
 		"postinstall:win32": "node dist/downloadFileWin32",
 		"test": "mocha",
@@ -20,7 +21,8 @@
 		"check": "npm run depcheck && npx --userconfig ./.npmrc @signageos/lib-ci check-deps",
 		"depcheck": "depcheck --config .depcheckrc.json",
 		"lint:prettier": "prettier  \"**/*.+(ts|tsx|json|js)\" --check",
-		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write"
+		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write",
+		"check-types": "tsc --noEmit"
 	},
 	"repository": {
 		"type": "git",
@@ -57,6 +59,7 @@
 		"@eslint/eslintrc": "3.3.1",
 		"@eslint/js": "9.25.1",
 		"@signageos/codestyle": "0.4.0",
+		"@signageos/lib-ci": "20.11.0",
 		"@types/child-process-promise": "2.2.6",
 		"@types/debug": "4.1.12",
 		"@types/download": "8.0.5",
