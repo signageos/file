@@ -17,14 +17,7 @@
 		"download",
 		"fs-extra",
 		"unzipper",
-		"@eslint/eslintrc",
-		"@eslint/js",
-		"eslint",
-		"eslint-config-prettier",
-		"eslint-plugin-unused-imports",
-		"prettier",
 		"should",
-		"typescript-eslint",
 		"run-script-os",
 		"@signageos/lib-ci"
 	]
