@@ -57,7 +57,7 @@
 	},
 	"devDependencies": {
 		"@signageos/codestyle": "1.0.0",
-		"@signageos/lib-ci": "20.13.0",
+		"@signageos/lib-ci": "20.15.0",
 		"@types/child-process-promise": "2.2.6",
 		"@types/debug": "4.1.12",
 		"@types/download": "8.0.5",
