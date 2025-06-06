@@ -63,7 +63,7 @@
 		"@types/download": "8.0.5",
 		"@types/fs-extra": "11.0.4",
 		"@types/mocha": "10.0.10",
-		"@types/node": "22.15.29",
+		"@types/node": "22.15.30",
 		"@types/unzipper": "0.10.11",
 		"depcheck": "1.4.7",
 		"mocha": "11.5.0",
