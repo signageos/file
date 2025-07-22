@@ -1,0 +1,16 @@
+# General
+node_modules/*
+package.json
+package-lock.json
+CHANGELOG.md
+
+# IDE
+.idea/*
+.vscode/*
+
+# Typescript
+tsconfig.json
+
+# Others
+dist/*
+.gitlab-ci.yml

@@ -25,9 +25,9 @@ const WIN32_ZLIB_URL = 'https://2.signageos.io/build/npm/zlib/zlib-1.2.3-bin-win
 export const promise = (async function () {
 	const tmpDir = os.tmpdir();
 
-	const fileZipFilename = Math.random().toString().substr(2) + '.zip';
-	const regexFilename = Math.random().toString().substr(2) + '.zip';
-	const zlibFilename = Math.random().toString().substr(2) + '.zip';
+	const fileZipFilename = Math.random().toString().substring(2) + '.zip';
+	const regexFilename = Math.random().toString().substring(2) + '.zip';
+	const zlibFilename = Math.random().toString().substring(2) + '.zip';
 
 	const fileZipPath = path.join(tmpDir, fileZipFilename);
 	const regexZipPath = path.join(tmpDir, regexFilename);
@@ -52,17 +52,17 @@ export const promise = (async function () {
 		// Clean up temporary zip files
 		try {
 			fs.unlinkSync(fileZipPath);
-		} catch (error) {
+		} catch {
 			/* ignore */
 		}
 		try {
 			fs.unlinkSync(regexZipPath);
-		} catch (error) {
+		} catch {
 			/* ignore */
 		}
 		try {
 			fs.unlinkSync(zlibZipPath);
-		} catch (error) {
+		} catch {
 			/* ignore */
 		}
 	}
