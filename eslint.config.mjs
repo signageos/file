@@ -14,6 +14,7 @@ export default [
             'package-lock.json',
             'README.md',
             '.prettierrc.js',
+            'test/**/*',
         ],
     },
 ];
