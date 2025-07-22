@@ -178,7 +178,7 @@ const DEFAULT_ALTERNATIVE_SEPARATORS = [';', '$', '€', '>', '<'];
  */
 function createFileArguments(filePath: string, options: Options): { args: string[]; separator: string } {
 	let separator = options.separator ?? DEFAULT_SEPARATOR;
-	let alternativeSeparators = options.alternativeSeparators ?? DEFAULT_ALTERNATIVE_SEPARATORS;
+	const alternativeSeparators = options.alternativeSeparators ?? DEFAULT_ALTERNATIVE_SEPARATORS;
 	const args: string[] = [];
 
 	if (options.mimeType) {

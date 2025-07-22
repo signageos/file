@@ -9,19 +9,20 @@
 		"package.json"
 	],
 	"scripts": {
-		"clean-build": "rm -rf dist/* && npm run build",
+		"clean": "rm -rf dist/*",
+		"clean-build": "npm run clean && npm run build",
 		"clean-build-public": "rm -rf dist/* && npm run build",
 		"build": "tsc",
-		"lint": "eslint --ext .ts,.tsx,.js ./src/ ./test",
-		"lint:fix": "eslint --fix --ext .ts,.tsx,.js ./src/ ./test",
+		"lint": "eslint && npm run lint:prettier",
+		"lint:fix": "eslint --fix",
+		"lint:prettier": "prettier  \"**/*.+(ts|tsx|json|js)\" --check",
+		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write",
 		"postinstall": "run-script-os || echo 'Nothing to do for current platform'",
 		"postinstall:win32": "node dist/downloadFileWin32",
 		"test": "npm run build && mocha",
 		"watch": "tsc --watch",
-		"check": "npm run depcheck && npx --userconfig ./.npmrc @signageos/lib-ci check-deps",
+		"check": "npm run depcheck && npx --userconfig ./.npmrc @signageos/lib-ci@latest check-deps",
 		"depcheck": "depcheck --config .depcheckrc.json",
-		"lint:prettier": "prettier  \"**/*.+(ts|tsx|json|js)\" --check",
-		"lint:prettier:fix": "prettier  \"**/*.+(ts|tsx|json|js)\" --write",
 		"check-types": "tsc --noEmit"
 	},
 	"repository": {
@@ -56,8 +57,8 @@
 		"unzipper": "0.12.3"
 	},
 	"devDependencies": {
-		"@signageos/codestyle": "1.0.0",
-		"@signageos/lib-ci": "20.21.2",
+		"@signageos/codestyle": "2.0.3",
+		"@signageos/lib-ci": "21.0.0",
 		"@types/child-process-promise": "2.2.6",
 		"@types/debug": "4.1.12",
 		"@types/download": "8.0.5",
