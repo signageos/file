@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Security
+- Replaced vulnerable `download@8.0.0` package (which used `got@8.3.2` with GHSA-pfrx-2q88-qq97)
+- Implemented native HTTP/HTTPS downloader using Node.js built-in modules
+
+### Changed
+- Extracted HTTP download functionality into separate `httpDownloader` utility module
+- Improved Windows binary extraction with proper file write completion handling
+
+### Fixed
+- Fixed race condition in ZIP file extraction that could cause incomplete downloads
 
 ## [1.0.1] - 2025-04-28
 ### Fixed

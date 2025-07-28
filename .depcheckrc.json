@@ -14,7 +14,6 @@
 		"prettier",
 		"debug",
 		"child-process-promise",
-		"download",
 		"fs-extra",
 		"unzipper",
 		"should",
