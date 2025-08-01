@@ -68,7 +68,7 @@
 		"mocha": "11.7.1",
 		"should": "13.2.3",
 		"ts-node": "10.9.2",
-		"typescript": "5.8.3"
+		"typescript": "5.9.2"
 	},
 	"overrides": {
 		"cross-spawn": "^7.0.0",
