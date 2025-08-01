@@ -169,6 +169,23 @@ const DEFAULT_SEPARATOR = ':';
 const DEFAULT_ALTERNATIVE_SEPARATORS = [';', '$', '€', '>', '<'];
 
 /**
+ * Standard MIME type categories as defined by IANA
+ * @see https://www.iana.org/assignments/media-types/media-types.xhtml
+ */
+const VALID_MIME_TYPE_CATEGORIES = [
+	'application',
+	'audio',
+	'font',
+	'example',
+	'image',
+	'message',
+	'model',
+	'multipart',
+	'text',
+	'video',
+] as const;
+
+/**
  * Creates arguments for the file command based on options and filePath
  *
  * @param filePath - Path to the file to be analyzed
@@ -232,10 +249,8 @@ function parseResult(rawResult: string, separator: string, options: Options): Re
 		debug('mime values', mimeValues);
 		const mimeType = mimeValues[0].trim();
 
-		// Validate MIME type format: should follow type/subtype pattern
-		// MIME types must have exactly one forward slash separating type and subtype
-		// Both type and subtype should not be empty and should contain only valid characters
-		const mimeTypeRegex = /^[a-zA-Z][a-zA-Z0-9][a-zA-Z0-9!#$&\-^_]*\/[a-zA-Z0-9][a-zA-Z0-9!#$&\-^_.]*$/;
+		// Validate MIME type format using IANA standard categories
+		const mimeTypeRegex = new RegExp(`^(${VALID_MIME_TYPE_CATEGORIES.join('|')})\\/[a-zA-Z0-9][a-zA-Z0-9!#$&\\-^_.+]*$`);
 		if (!mimeTypeRegex.test(mimeType)) {
 			throw new Error(`Invalid MIME type format: ${mimeType}`);
 		}
