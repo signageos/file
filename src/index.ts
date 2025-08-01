@@ -209,23 +209,47 @@ function createFileArguments(filePath: string, options: Options): { args: string
  * @param separator - Separator character used in the output
  * @param options - Configuration options for the file command
  * @returns A Result object containing parsed file type information
+ * @throws If the file command output format is invalid
  */
 function parseResult(rawResult: string, separator: string, options: Options): Result {
-	const values = rawResult.substring(rawResult.indexOf(separator) + 1);
+	// Check if the separator exists in the output
+	const separatorIndex = rawResult.indexOf(separator);
+	if (separatorIndex === -1) {
+		throw new Error(`Invalid file command output format: missing separator '${separator}'`);
+	}
+
+	const values = rawResult.substring(separatorIndex + 1).trim();
+
+	// Basic validation: output should not be empty after separator
+	if (!values) {
+		throw new Error('Invalid file command output: empty result after separator');
+	}
 
 	const parsed: Result = {};
 
 	if (options.mimeType) {
 		const mimeValues = values.split(';');
 		debug('mime values', mimeValues);
-		parsed.mimeType = mimeValues[0].trim() as MimeType;
+		const mimeType = mimeValues[0].trim();
+
+		// Validate MIME type format: should follow type/subtype pattern
+		// MIME types must have exactly one forward slash separating type and subtype
+		// Both type and subtype should not be empty and should contain only valid characters
+		const mimeTypeRegex = /^[a-zA-Z][a-zA-Z0-9][a-zA-Z0-9!#$&\-^_]*\/[a-zA-Z0-9][a-zA-Z0-9!#$&\-^_.]*$/;
+		if (!mimeTypeRegex.test(mimeType)) {
+			throw new Error(`Invalid MIME type format: ${mimeType}`);
+		}
+
+		parsed.mimeType = mimeType;
 		if (mimeValues.length > 1) {
 			const parsedExtra = querystring.decode(mimeValues[1].trim());
-			parsed.charset = parsedExtra.charset as Charset;
+			if (typeof parsedExtra.charset === 'string') {
+				parsed.charset = parsedExtra.charset;
+			}
 		}
 	} else {
 		const typeValues = values.split(',');
-		parsed.types = typeValues.map((type) => type.trim() as GeneralType);
+		parsed.types = typeValues.map((type) => type.trim());
 	}
 
 	return parsed;

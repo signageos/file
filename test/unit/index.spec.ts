@@ -58,6 +58,13 @@ describe('index', function () {
 		it('should fail mime-type of HTML with : and * characters in file name and not available separator', async function () {
 			await should(file(testFile4Path, { mimeType: true, alternativeSeparators: [] })).rejected();
 		});
+
+		it('should throw error when file command returns error message as output', async function () {
+			// This test covers cases where file command returns error messages that could
+			// be mistakenly parsed as valid MIME types without proper validation
+			const invalidPath = '/dev/null/invalid/path/file.txt';
+			await should(file(invalidPath, { mimeType: true })).rejected();
+		});
 	});
 
 	describe('getVersion', function () {

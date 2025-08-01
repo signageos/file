@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Fixed race condition in ZIP file extraction that could cause incomplete downloads
+- Improved MIME type validation in file command output parsing to prevent error messages from being returned as valid results
+- Enhanced backward compatibility by ensuring errors are properly thrown instead of being silently returned as results
 
 ## [1.0.1] - 2025-04-28
 ### Fixed
