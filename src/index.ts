@@ -169,6 +169,23 @@ const DEFAULT_SEPARATOR = ':';
 const DEFAULT_ALTERNATIVE_SEPARATORS = [';', '$', '€', '>', '<'];
 
 /**
+ * Standard MIME type categories as defined by IANA
+ * @see https://www.iana.org/assignments/media-types/media-types.xhtml
+ */
+const VALID_MIME_TYPE_CATEGORIES = [
+	'application',
+	'audio',
+	'font',
+	'example',
+	'image',
+	'message',
+	'model',
+	'multipart',
+	'text',
+	'video',
+] as const;
+
+/**
  * Creates arguments for the file command based on options and filePath
  *
  * @param filePath - Path to the file to be analyzed
@@ -209,23 +226,45 @@ function createFileArguments(filePath: string, options: Options): { args: string
  * @param separator - Separator character used in the output
  * @param options - Configuration options for the file command
  * @returns A Result object containing parsed file type information
+ * @throws If the file command output format is invalid
  */
 function parseResult(rawResult: string, separator: string, options: Options): Result {
-	const values = rawResult.substring(rawResult.indexOf(separator) + 1);
+	// Check if the separator exists in the output
+	const separatorIndex = rawResult.indexOf(separator);
+	if (separatorIndex === -1) {
+		throw new Error(`Invalid file command output format: missing separator '${separator}'`);
+	}
+
+	const values = rawResult.substring(separatorIndex + 1).trim();
+
+	// Basic validation: output should not be empty after separator
+	if (!values) {
+		throw new Error('Invalid file command output: empty result after separator');
+	}
 
 	const parsed: Result = {};
 
 	if (options.mimeType) {
 		const mimeValues = values.split(';');
 		debug('mime values', mimeValues);
-		parsed.mimeType = mimeValues[0].trim() as MimeType;
+		const mimeType = mimeValues[0].trim();
+
+		// Validate MIME type format using IANA standard categories
+		const mimeTypeRegex = new RegExp(`^(${VALID_MIME_TYPE_CATEGORIES.join('|')})\\/[a-zA-Z0-9][a-zA-Z0-9!#$&\\-^_.+]*$`);
+		if (!mimeTypeRegex.test(mimeType)) {
+			throw new Error(`Invalid MIME type format: ${mimeType}`);
+		}
+
+		parsed.mimeType = mimeType;
 		if (mimeValues.length > 1) {
 			const parsedExtra = querystring.decode(mimeValues[1].trim());
-			parsed.charset = parsedExtra.charset as Charset;
+			if (typeof parsedExtra.charset === 'string') {
+				parsed.charset = parsedExtra.charset;
+			}
 		}
 	} else {
 		const typeValues = values.split(',');
-		parsed.types = typeValues.map((type) => type.trim() as GeneralType);
+		parsed.types = typeValues.map((type) => type.trim());
 	}
 
 	return parsed;
