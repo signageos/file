@@ -57,7 +57,7 @@
 	},
 	"devDependencies": {
 		"@signageos/codestyle": "2.0.3",
-		"@signageos/lib-ci": "21.2.1",
+		"@signageos/lib-ci": "21.4.0",
 		"@types/child-process-promise": "2.2.6",
 		"@types/debug": "4.1.12",
 		"@types/fs-extra": "11.0.4",
