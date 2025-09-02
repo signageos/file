@@ -65,7 +65,7 @@
 		"@types/node": "22.18.0",
 		"@types/unzipper": "0.10.11",
 		"depcheck": "1.4.7",
-		"mocha": "11.7.1",
+		"mocha": "11.7.2",
 		"should": "13.2.3",
 		"ts-node": "10.9.2",
 		"typescript": "5.9.2"
