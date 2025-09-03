@@ -56,7 +56,7 @@
 		"unzipper": "0.12.3"
 	},
 	"devDependencies": {
-		"@signageos/codestyle": "2.0.3",
+		"@signageos/codestyle": "2.1.0",
 		"@signageos/lib-ci": "23.1.0",
 		"@types/child-process-promise": "2.2.6",
 		"@types/debug": "4.1.12",
