@@ -1,4 +1,4 @@
-FROM node:22-alpine AS runtime
+FROM node:24-alpine AS runtime
 
 RUN apk add --no-cache file
 
