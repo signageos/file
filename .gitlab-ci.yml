@@ -1,4 +1,4 @@
 include:
   - project: "signageos/infra/gitlab-ci"
-    file: "/pipelines/ts-lib-public.yaml"
+    file: "/pipelines/ts-lib.yaml"
     ref: master
